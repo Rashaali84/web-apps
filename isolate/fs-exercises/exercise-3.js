@@ -14,7 +14,7 @@ const log = (logId, value) => console.log(
 
 
 // --- main script ---
-
+// it is about sync and async read and write 
 const newFileContents = '*[]*';
 log(1, newFileContents);
 
@@ -34,11 +34,11 @@ const writeFileCallback = (err) => {
     log(4, 'pass!');
   };
 
-  fs._(_, _, _);
+  fs.readFile(FILE_PATH, 'utf-8', readFileCallback);
   log(3, 'reading file ...');
 };
 
-fs._(_, _, _);
+fs.writeFileSync(FILE_PATH, newFileContents, writeFileCallback);
 log(2, 'writing file ...');
 
 

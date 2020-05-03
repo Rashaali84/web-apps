@@ -20,7 +20,7 @@ const objectToSave = {
 };
 log(1, objectToSave);
 
-const stringToSave = _._(objectToSave, null, '  ');
+const stringToSave = JSON.stringify(objectToSave, null, '  ');
 log(2, stringToSave);
 
 
@@ -31,13 +31,13 @@ const writeFileCallback = (err) => {
   }
 
   log(4, 'reading file ...');
-  // sync
-  const fileText = fs._(_, _);
+  // sync // you have to write the encoding to not to return buffer
+  const fileText = fs.readFileSync(FILE_PATH, 'utf-8', writeFileCallback);
 
   log(5, fileText);
   assert.strictEqual(fileText, stringToSave);
 
-  const parsedFileContents = _._(fileText);
+  const parsedFileContents = JSON.parse(fileText);
   log(6, parsedFileContents);
   assert.deepStrictEqual(parsedFileContents, objectToSave);
 
@@ -45,6 +45,6 @@ const writeFileCallback = (err) => {
 };
 
 // async
-fs._(_, _, _);
+fs.writeFile(FILE_PATH, stringToSave, writeFileCallback);
 log(3, 'writing file ...');
 

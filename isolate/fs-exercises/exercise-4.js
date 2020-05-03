@@ -20,7 +20,7 @@ const objectToSave = {
 };
 log(1, objectToSave);
 
-const stringToSave = _;
+const stringToSave = JSON.stringify(objectToSave, null, '  ');
 log(2, stringToSave);
 
 const writeFileCallback = (err) => {
@@ -38,18 +38,19 @@ const writeFileCallback = (err) => {
     log(5, fileText);
     assert.strictEqual(fileText, stringToSave);
 
-    const parsedFileContents = _;
+    const parsedFileContents = JSON.parse(fileText);
     log(6, parsedFileContents);
     assert.deepStrictEqual(parsedFileContents, objectToSave);
 
     log(7, 'pass!');
   };
+  //async read because it is before write
+  fileText = fs.readFile(FILE_PATH, 'utf-8', readFileCallback);
 
-  _;
   log(4, 'reading file ...');
 };
-
-_;
+//should be sync to fire first 
+fs.writeFileSync(FILE_PATH, stringToSave, writeFileCallback);
 
 log(3, 'writing file ...');
 

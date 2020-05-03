@@ -25,7 +25,7 @@ const objectToSave = {
 log(1, objectToSave);
 
 // https://javascript.info/json#json-stringify
-const stringToSave = _._(_, _, _);
+const stringToSave = JSON.stringify(objectToSave, [todoText, completed], 0);
 log(2, stringToSave);
 
 // sync
@@ -44,7 +44,7 @@ const readFileCallback = (err, fileText) => {
 
   const parsedFileContents = JSON.parse(fileText);
   log(6, parsedFileContents);
-  assert.deepStrictEqual(parsedFileContents, _);
+  assert.deepStrictEqual(parsedFileContents, stringToSave);
 
   log(7, 'pass!');
 };

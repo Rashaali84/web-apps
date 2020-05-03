@@ -20,18 +20,45 @@ log(0.2, ORIGINAL_TEXT);
 // --- main script ---
 
 // there are two steps to this exercise
-// 1. fill in the blanks (and pass!)
+// 1. fill in the blanks (and pass!) // all should be sync 
+//and I added call back function
 // 2. refactor to asynchronous
 
-log(1, 'appending to file ...');
-fs._(_, _);
+const callBack = (err, content) => {
+  if (err) {
+    log(3, err);
+    return;
+  }
 
+  log(3, content);
+};
+
+/*log(1, 'appending to file ...');
+fs.appendFileSync(SOURCE_PATH, ORIGINAL_TEXT, callBack);
 log(2, 'appending to file ...');
-fs._(_, _);
-
+fs.appendFileSync(SOURCE_PATH, ORIGINAL_TEXT, callBack);
 log(1, 'reading file ...');
-const newText = fs._(SOURCE_PATH, _);
+const newText = fs.readFileSync(SOURCE_PATH, 'utf-8', callBack);
 log(4, newText);
-
 assert.strictEqual(newText, ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT);
-log(5, 'pass!');
+log(5, 'pass!');*/
+
+/////////////////////
+//refactor to async fs.appendFileSync(SOURCE_PATH, ORIGINAL_TEXT, callBack);
+log(1, 'appending to file ...');
+fs.appendFile(SOURCE_PATH, ORIGINAL_TEXT, function (err) {
+  if (err) throw err;
+  log(2, 'appending to file ...');
+  fs.appendFile(SOURCE_PATH, ORIGINAL_TEXT, function (err) {
+    if (err) throw err;
+    log(1, 'reading file ...');
+    fs.readFile(SOURCE_PATH, 'utf-8', function (err, contents) {
+      if (err) throw err;
+      log(4, contents);
+      assert.strictEqual(contents, ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT);
+      log(5, 'pass!');
+    });
+  });
+});
+
+

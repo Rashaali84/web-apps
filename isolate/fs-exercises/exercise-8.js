@@ -1,6 +1,6 @@
 // require dependencies
 const fs = require('fs');
-
+const path = require('path');
 // declare constants
 const START = Date.now();
 const DOC_STRING = `
@@ -37,24 +37,24 @@ if (process.argv.includes('-h')) {
   process.exit(0);
 };
 
-const command = _;
-const fileName = _;
+const command = process.argv[2];
+const fileName = process.argv[3];
 
-if (_) {
+if (!command) {
   log('1.a', 'a command is required, exiting');
   process.exit(0);
 }
 log('1.b', 'command: ' + command);
 
 
-if (command === _) {
+if (command === 'list') {
   log('3', 'reading filenames ...');
-  const fileNames = fs.readdirSync(_);
+  const fileNames = fs.readdirSync(__dirname);
   log('4', fileNames);
   process.exit(0)
 };
 
-if (_) {
+if (!fileName) {
   log('2.a', 'a file name is required, exiting');
   process.exit(0);
 }
@@ -62,21 +62,24 @@ log('2.b', 'fileName: ' + fileName);
 
 
 
-if (_) {
-  log('3.a', 'declaring _');
-  const _ = (err, contents) => {
-    _;
+if (command === 'read') {
+  log('3.a', 'declaring reading');
+  const callBack = (err, contents) => {
+    if (err)
+      throw err;
+    console.log(contents);
   };
-  fs._(__dirname + '/' + fileName, 'utf-8', _);
-  log('4.a', '_ from ' + fileName + ' ...');
+  fs.readFile(path.join(__dirname, fileName), 'utf-8', callBack);
+  log('4.a', 'read data from ' + fileName + ' ...');
 
-} else if (_) {
-  log('3.b', 'declaring _');
-  const _ = (err) => {
-    _;
+} else if (command === 'unlink') {
+  log('3.b', 'declaring unlink');
+  const callBack = (err) => {
+    if (err)
+      throw err;
   };
-  fs._(__dirname + '/' + fileName, _);
-  log('4.b', '_ ' + fileName + ' ...');
+  fs.unlink(path.join(__dirname, fileName), callBack);
+  log('4.b', 'Unlink ' + fileName + ' ...');
 
 } else {
   log('3.c', 'unknown command: ' + command);

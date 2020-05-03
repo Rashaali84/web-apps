@@ -1,5 +1,6 @@
 // require dependencies
 const fs = require('fs');
+const path = require('path');
 
 // declare constants
 const START = Date.now();
@@ -32,53 +33,65 @@ const log = (logId, value) => console.log(
 
 // fill in the _'s to reverse-engineer the behavior of exercise-9-demo.min.js
 
-if (_) {
-  _;
-  _;
-}
-
-const command = _;
-const fileName = _;
-const text = _;
-
-if (_) {
-  _;
-  _;
-}
-_;
-
-
-if (_) {
-  _;
+if (process.argv.includes('-h')) {
+  log(0, DOC_STRING);
+  process.exit(0);
 };
 
+const command = process.argv[2];
+const fileName = process.argv[3];
+const text = process.argv[4];
 
-if (_) {
-  _;
-  _;
+
+//check if command is missing 
+if (!command) {
+  log('1.a', 'a command is required, exiting');
+  process.exit(0);
 }
-_;
+log('1.b', 'command: ' + command);
 
+if (command === 'list') {
+  log('1.a.1', 'reading filenames ...');
+  const fileNames = fs.readdirSync(__dirname);
+  log('1.b.2', fileNames);
+  process.exit(0)
+};
 
-if (_) {
-  _;
-  _;
+//check second arguments 
+if (!fileName) {
+  log('2.a', 'a file name is required, exiting');
+  process.exit(0);
 }
-_;
+log('2.b', 'fileName: ' + fileName);
 
+//check third arguments which in a  read/append  a text 
+if (!text) {
+  log('2.a.1', 'a text is required is required, exiting');
+  process.exit(0);
+}
+log('2.b.1', 'text data  : ' + text);
 
-if (_) {
-  _;
-  _;
-  _;
-  _;
+//check write and aoppend commands 
+if (command === 'write') {
+  log('3.a', 'declaring write');
+  const callBack = (err) => {
+    if (err)
+      throw err;
 
-} else if (_) {
-  _;
-  _;
-  _;
-  _;
+  };
+  fs.writeFile(path.join(__dirname, fileName), text, callBack);
+  log('3.b', 'write ' + fileName + ' ...');
+
+} else if (command === 'append') {
+  log('4.a', 'declaring append a text to the file.');
+  const callBack = (err) => {
+    if (err)
+      throw err;
+
+  };
+  fs.appendFile(path.join(__dirname, fileName), text, callBack);
+  log('4.b', 'append ' + fileName + ' ...');
 
 } else {
-  _;
-}
+  log('4.c', 'unknown command: ' + command);
+};
