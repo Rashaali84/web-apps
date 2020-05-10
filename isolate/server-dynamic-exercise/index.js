@@ -11,6 +11,7 @@ const app = express();
 // log all requests
 app.use(logger);
 // parse the HTTP body
+app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: 'text/plain' }));
 
 app.get('/', (req, res) => {
@@ -24,19 +25,21 @@ app.get('/', (req, res) => {
 //http://localhost:8080/greeter/hi?name=hello
 app.get('/greeter/hi', (req, res) => {
 
-  const name = req.query.name;
+  const name = req.body.name;
   const dayName = getDayNameNow();
-  const reply = `hello(${name}), happy (${dayName}!`;
+  const reply = `hello(${name}), happy (${dayName})!`;
 
   res.status(200)
     .send(reply);
 })
 // GET: '/greeter/bye'
 // response: status:200, "good bye (query name), happy (query day)!"
+//http://localhost:8080/greeter/bye?name=hello
 app.get('/greeter/bye', (req, res) => {
 
-  const name = req.query.name;
-  const reply = `good bye (${name}), happy (${getDayNameNow()}!`;
+  const name = req.body.name;
+  console.log(name);
+  const reply = `good bye (${name}), happy (${getDayNameNow()})!`;
 
   res.status(200)
     .send(reply);
@@ -44,11 +47,16 @@ app.get('/greeter/bye', (req, res) => {
 // POST: '/greeter/hi'
 // behavior: log "hello (body name), happy (body day)!"
 // response: status:200
-app.get('/greeter/hi', (req, res) => {
-  const body = req.body.toString();
-  console.log(body);
+//http://localhost:8080/greeter/hi?name=hyf
+app.post('/greeter/hi', (req, res) => {
+  /*if (!req.body.name) {
+    res.status(400).send('name is required .. ')
+    return;
+  }*/
+  //const body = req.body.toString();
+  //console.log(body);
   const name = req.body.name;
-  const reply = `hello (${name}), happy (${getDayNameNow()}!`;
+  const reply = `hello (${name}), happy (${getDayNameNow()})!`;
 
   res.status(200)
     .send(reply);
@@ -56,12 +64,13 @@ app.get('/greeter/hi', (req, res) => {
 // POST: '/greeter/bye'
 // behavior: log "good bye (body name), happy (body day)!"
 // response: status:200
-app.get('/greeter/bye', (req, res) => {
+//http://localhost:8080/greeter/bye?name=hyf
+app.post('/greeter/bye', (req, res) => {
 
   const body = req.body.toString();
   console.log(body);
-  const name = req.body.name;
-  const reply = `good bye (${name}), happy (${getDayNameNow()}!`;
+  const name = req.body['name'];
+  const reply = `good bye (${name}), happy (${getDayNameNow()})!`;
 
   res.status(200)
     .send(reply);

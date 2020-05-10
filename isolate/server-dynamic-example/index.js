@@ -8,7 +8,8 @@ const logger = require('./middleware/logger');
 const app = express();
 
 app.use(logger);
-app.use(bodyParser.raw({ type: 'text/plain' }));
+app.use(bodyParser);
+//app.use(bodyParser.raw({ type: 'text/plain' }));
 
 app.get('/say-hello', (req, res) => {
 
