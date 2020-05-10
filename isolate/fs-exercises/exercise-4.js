@@ -1,3 +1,8 @@
+/* helpful examples
+  read-text.js
+  write-text.js
+*/
+
 // require dependencies
 const assert = require('assert');
 const fs = require('fs');
@@ -42,7 +47,7 @@ const writeFileCallback = (err) => {
     log(6, parsedFileContents);
     assert.deepStrictEqual(parsedFileContents, objectToSave);
 
-    log(7, 'pass!');
+    log(7, '\033[32mpass!\x1b[0m');
   };
   //async read because it is before write
   fileText = fs.readFile(FILE_PATH, 'utf-8', readFileCallback);

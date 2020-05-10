@@ -1,4 +1,10 @@
-// requier dependencies
+/* helpful examples
+  read-json.js
+  write-json.js
+  sync-vs-async.js
+*/
+
+// require dependencies
 const assert = require('assert');
 const fs = require('fs');
 
@@ -41,7 +47,7 @@ const writeFileCallback = (err) => {
   log(6, parsedFileContents);
   assert.deepStrictEqual(parsedFileContents, objectToSave);
 
-  log(7, 'pass!');
+  log(7, '\033[32mpass!\x1b[0m');
 };
 
 // async

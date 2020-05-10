@@ -1,3 +1,10 @@
+/* helpful examples
+  refactor-sync-to-async.js
+  sync-vs-async.js
+  append-text.js
+  copy.js
+*/
+
 // require dependencies
 const assert = require('assert');
 const fs = require('fs');
@@ -41,6 +48,7 @@ log(1, 'reading file ...');
 const newText = fs.readFileSync(SOURCE_PATH, 'utf-8', callBack);
 log(4, newText);
 assert.strictEqual(newText, ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT);
+<<<<<<< HEAD
 log(5, 'pass!');*/
 
 /////////////////////
@@ -62,3 +70,6 @@ fs.appendFile(SOURCE_PATH, ORIGINAL_TEXT, function (err) {
 });
 
 
+=======
+log(5, '\033[32mpass!\x1b[0m');
+>>>>>>> upstream/master
