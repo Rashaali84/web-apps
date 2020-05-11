@@ -43,7 +43,7 @@ app.post('/param/?:value', (req, res) => {
 });
 //http://localhost:8080/query?value= method post
 app.post('/query?:value', (req, res) => {
-  const queryValue = req.query.value;
+  const queryValue = req.query;
   console.log(`query value: ${queryValue}`);
   const responseData = {
     queryValue
@@ -52,6 +52,7 @@ app.post('/query?:value', (req, res) => {
   //res.status(200)
   // .send(responseData);
 });
+
 //http://localhost:8080/body/   method post 
 app.post('/body/', (req, res) => {
   const bodyValue = req.body.toString();
