@@ -31,7 +31,7 @@ app.post('/api/:value', (req, res) => {
   res.json(responseData);
 });
 //http://localhost:8080/param/1  method post
-app.post('/param/?:value', (req, res) => {
+app.post('/param/:value', (req, res) => {
   const paramValue = req.params.value;
   console.log(`param value: ${paramValue}`);
   const responseData = {
@@ -42,7 +42,8 @@ app.post('/param/?:value', (req, res) => {
   // .send(responseData);
 });
 //http://localhost:8080/query?value= method post
-app.post('/query?:value', (req, res) => {
+//http://localhost:8080/query?value=1
+app.post('/query', (req, res) => {
   const queryValue = req.query;
   console.log(`query value: ${queryValue}`);
   const responseData = {
