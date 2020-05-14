@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.status(200).send(reply);
 });
 
-// GET: '/greeter/hi'
+// GET: '/greeter/hi' 
 // response: status:200, "hello (query name), happy (query day)!"
 //http://localhost:8080/greeter/hi?name=hello
 app.get('/greeter/hi', (req, res) => {
