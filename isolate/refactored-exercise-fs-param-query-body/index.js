@@ -17,6 +17,9 @@ const config = require('./config');
 const FILES_DIR = path.join(__dirname, config.FILES_DIR);
 
 const app = express();
+//import the routes.js
+const api = require('./api/routes');
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -33,76 +36,8 @@ app.use(morgan('dev'));
 
 app.use('/', express.static(path.join(__dirname, 'client')));
 
-// refactor these routes into /api
-app.get('/api', (req, res) => {
-  res.send('api!');
-});
+app.use('/api', api);
 
-app.post('/api/param/:value', (req, res) => {
-  const paramValue = req.params.value;
-
-  console.log(`param value: ${paramValue}`);
-
-  const fileName = 'param.txt';
-  fs.writeFile(`${FILES_DIR}/${fileName}`, paramValue, err => {
-    if (err && err.code === 'ENOENT') {
-      console.log(err);
-      res.status(404).end();
-      return;
-    }
-    if (err) {
-      console.log(err);
-      next(err);
-      return;
-    }
-
-    res.json({ message: `'${paramValue}' saved to ${fileName}` });
-  });
-});
-
-app.post('/api/query', (req, res) => {
-  const queryValue = req.query.value;
-
-  console.log(`query value: ${queryValue}`);
-
-  const fileName = 'query.txt';
-  fs.writeFile(`${FILES_DIR}/${fileName}`, queryValue, err => {
-    if (err && err.code === 'ENOENT') {
-      console.log(err);
-      res.status(404).end();
-      return;
-    }
-    if (err) {
-      console.log(err);
-      next(err);
-      return;
-    }
-
-    res.json({ message: `'${queryValue}' saved to ${fileName}` });
-  });
-});
-
-app.post('/api/body', (req, res) => {
-  const bodyValue = req.body.value;
-
-  console.log(`body value: ${bodyValue}`);
-
-  const fileName = 'body.txt';
-  fs.writeFile(`${FILES_DIR}/${fileName}`, bodyValue, err => {
-    if (err && err.code === 'ENOENT') {
-      console.log(err);
-      res.status(404).end();
-      return;
-    }
-    if (err) {
-      console.log(err);
-      next(err);
-      return;
-    }
-
-    res.json({ message: `'${bodyValue}' saved to ${fileName}` });
-  });
-});
 
 app.use(function (err, req, res, next) {
   console.error(err.stack);

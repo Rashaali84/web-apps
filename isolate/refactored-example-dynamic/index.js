@@ -26,7 +26,7 @@ app.use(morgan('combined', {
 // log to console
 app.use(morgan('dev'));
 
-
+// //http://localhost:8080/api/say-hello?tree=ff&name=hh
 // --- the magic line of code ---
 app.use('/api', api);
 

@@ -1,6 +1,6 @@
 const handlers = {
   sayHello: (req, res) => {
-
+    //http://localhost:8080/api/say-hello?tree=ff&name=hh
     const name = req.query.name;
     const reply = `Hello ${name}! Your tree is ${req.query.tree}`;
 
