@@ -28,7 +28,9 @@
 ## Prep Work
 
 ### Prep slides & recordings
-Recordings: [Part 1](https://vimeo.com/417960548), [Part 2](https://vimeo.com/418360319), [Part 3](https://vimeo.com/418359614)
+
+- [slides](https://hackyourfuture.be/web-apps/week-3/prep.html)
+- Recordings: [Part 1](https://vimeo.com/417960548), [Part 2](https://vimeo.com/418360319), [Part 3](https://vimeo.com/418359614)
 
 ### HTTP Statuses
 
@@ -54,13 +56,13 @@ Recordings: [Part 1](https://vimeo.com/417960548), [Part 2](https://vimeo.com/41
 
 ## Lesson Plan
 
-> [Lesson Plan Slides](https://hackyourfuture.be/module-name/week-3)
+> [Lesson Plan Slides](https://hackyourfuture.be/web-apps/week-3)
 
 Practice refactoring small Express apps from single-file servers into multiple files using `express.Router()`.
 
 ### Isolate
 
-These exercises have a server running from a single file (`index.js`), your task is to refactor them to match the file structure in the examples.
+These exercises have a server running from a single file (`index.js`), your task is to refactor them to match the file structure in the examples. Bonust points: convert all callback and promise code that you see into async/await.
 
 - Exercises
   - [param/query/body](../isolate/refactored-exercise-param-query-body)
