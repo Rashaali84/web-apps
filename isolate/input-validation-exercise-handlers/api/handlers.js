@@ -21,11 +21,11 @@ const handlers = {
       newFurniture.id = fruitData.nextId;
       fruitData.nextId++;
 
-      const isValid = _;
+      const isValid = tv4.validate(newFurniture, FRUIT_SCHEMA);
 
-      if (_) {
-        const error = _;
-        console.error(error)
+      if (isValid) {
+        const error = tv4.error;
+        console.error(error);
 
         res.status(400).json({
           error: {
@@ -58,8 +58,8 @@ const handlers = {
   },
   readAll: async (req, res) => {
     try {
-      const fruitDataString = await _;
-      const fruitData = _;
+      const fruitDataString = await readFile(DATA_PATH, 'utf-8');
+      const fruitData = JSON.parse(fruitDataString);
 
       res.json(fruitData.fruit);
 
@@ -75,8 +75,8 @@ const handlers = {
     }
   },
   readOne: async (req, res) => {
-    const idToUpdateStr = _;
-    const idToUpdate = _;
+    const idToUpdateStr = req.params.id;
+    const idToUpdate = Number(idToUpdateStr);
 
     try {
       const fruitDataString = await readFile(DATA_PATH, 'utf-8');
@@ -103,7 +103,7 @@ const handlers = {
 
     const newFurniture = req.body
     newFurniture.id = idToUpdate;
-    const isValid = _
+    const isValid = tv4.validate(newFurniture, FRUIT_SCHEMA);
 
     if (!isValid) {
       const error = _
@@ -111,8 +111,8 @@ const handlers = {
 
       res.status(400).json({
         error: {
-          _,
-          _
+          message: error.message,
+          dataPath: error.dataPath
         }
       })
       return
@@ -168,7 +168,7 @@ const handlers = {
 
         const newFurnitureDataString = JSON.stringify(fruitData, null, '  ');
 
-        await _;
+        await writeFile(DATA_PATH, newFurnitureDataString);
 
         res.json(entryToDelete);
       } else {

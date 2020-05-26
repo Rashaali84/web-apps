@@ -1,0 +1,31 @@
+{
+  "nextId": 4,
+  "animals": [
+    {
+      "id": 1,
+      "habitat": "habitat1",
+      "average_mass": 66,
+      "is_extinct": true
+    },
+
+    {
+      "id": 2,
+      "habitat": "habitat2",
+      "average_mass": 77,
+      "traits": {
+        "beak": true
+      },
+      "is_extinct": true
+    },
+    {
+      "id": 3,
+      "habitat": "habitat5",
+      "average_mass": 77,
+      "traits": {
+        "beak": true,
+        "feet": false
+      },
+      "is_extinct": true
+    }
+  ]
+}
